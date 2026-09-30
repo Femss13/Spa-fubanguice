@@ -144,7 +144,7 @@
       </section>
 
       <!-- ============================================ -->
-      <!-- VIEW 2: CART / CARRINHO (LOCALSTORAGE BASED)  -->
+      <!-- VIEW 2: CART / CARRINHO (LOCALSTORAGE BASED) -->
       <!-- ============================================ -->
       <section id="view-cart" class="hidden space-y-4">
         <div class="flex items-center justify-between border-b border-pink-500/20 pb-3">
@@ -563,13 +563,14 @@
       gridEl.innerHTML = "";
 
       try {
-        // Simulação com promise para demonstrar loading e permitir arquivo local ou fallback
-        // Em GitHub Pages, se existir menu.json no repo ele tenta carregar; se não, usa os dados estruturados
         let loadedData = null;
         try {
-          const res = await fetch("menu.json", { cache: "no-cache" });
+          // Busca o JSON que criámos nos passos anteriores
+          const res = await fetch("./produtos.json", { cache: "no-cache" });
           if (res.ok) {
-            loadedData = await res.json();
+            const jsonCompleto = await res.json();
+            // Acede ao array "produtos" dentro do JSON
+            loadedData = jsonCompleto.produtos;
           }
         } catch (e) {
           // fallback sem quebrar silenciosamente
@@ -1015,7 +1016,7 @@
           <p class="text-[11px] leading-relaxed text-rose-100/80">
             ${detail} Por questões de segurança do cardápio fútil, a validação de entrega requer confirmação de área. Seu carrinho continua preservado em sua sacola!
           </p>
-          <button onclick="requestGeolocationVerification()" class="px-3 py-1.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs transition">
+          <button type="button" onclick="requestGeolocationVerification()" class="px-3 py-1.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs transition mt-2">
             <i class="fa-solid fa-arrow-rotate-right mr-1"></i> Tentar Localização Novamente
           </button>
         </div>
@@ -1236,34 +1237,5 @@ _Enviado via App SPA de Fubanguice!_ 💅`;
       showToast("Tudo inspirado nas tendências mais virais da internet!");
     }
   </script>
-
-  <!-- O resto do seu código HTML fica aqui em cima -->
-    
-    <script src="app.js">
-// Aguarda o HTML carregar completamente antes de rodar o JS
-document.addEventListener('DOMContentLoaded', () => {
-    carregarCardapio();
-});
-
-async function carregarCardapio() {
-    try {
-        // Busca o arquivo JSON na mesma pasta
-        const resposta = await fetch('./produtos.json');
-        
-        // Converte o arquivo lido para um objeto JavaScript
-        const dados = await resposta.json();
-        
-        // Mostra os produtos no console para teste
-        console.log("Sucesso! Os produtos são:", dados.produtos);
-        
-        // O próximo passo será criar uma função para desenhar esses dados na tela
-        
-    } catch (erro) {
-        console.error("Deu erro ao carregar o cardápio:", erro);
-        // Aqui entra a regra da SPEC: exibir o estado de erro na tela
-    }
-}
-      
-    </script>
 </body>
 </html>
