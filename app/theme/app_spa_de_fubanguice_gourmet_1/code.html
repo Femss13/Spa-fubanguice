@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Fubanguice Gourmet - O Cardápio dos Hits Virais</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            fubanga: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              200: '#fecdd3',
+              400: '#fb7185',
+              500: '#f43f5e',
+              600: '#e11d48',
+              700: '#be123c',
+              gold: '#eab308',
+              glam: '#d946ef'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0f0a12;
+      color: #f8fafc;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .glam-border {
+      box-shadow: 0 0 20px rgba(244, 63, 94, 0.25), inset 0 0 10px rgba(234, 179, 8, 0.1);
+    }
+    .badge-hit {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    }
+    .badge-promo {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+    }
+    .badge-kit {
+      background: linear-gradient(135deg, #10b981, #06b6d4);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex justify-center bg-zinc-950 font-sans antialiased text-slate-100">
+
+  <!-- Mobile App Container (390px max-width experience) -->
+  <div class="w-full max-w-md min-h-screen bg-neutral-900/90 shadow-2xl relative flex flex-col border-x border-pink-900/20 pb-28">
+
+    <!-- Top Sticky Header -->
+    <header class="sticky top-0 z-40 bg-neutral-900/95 backdrop-blur-md border-b border-pink-500/20 px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-pink-600 via-rose-500 to-amber-400 p-0.5 shadow-lg shadow-pink-500/30 flex items-center justify-center">
+          <div class="w-full h-full bg-neutral-900 rounded-[14px] flex items-center justify-center text-pink-400 text-lg">
+            ✨
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-lg font-black tracking-tight font-serif text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-200 to-amber-200">
+              FUBANGUICE
+            </h1>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-300 border border-pink-500/30">VIP</span>
+          </div>
+          <p class="text-[11px] text-pink-200/60 font-medium">Cardápio de futilidades virais 💅</p>
+        </div>
+      </div>
+
+      <!-- Quick Cart Button in Header -->
+      <button onclick="navigateTo('cart')" class="relative p-2.5 rounded-full bg-neutral-800 border border-pink-500/30 text-pink-300 hover:text-white transition active:scale-95">
+        <i class="fa-solid fa-bag-shopping text-base"></i>
+        <span id="cart-counter-badge" class="hidden absolute -top-1 -right-1 bg-gradient-to-r from-pink-600 to-rose-500 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center shadow-lg animate-pulse">0</span>
+      </button>
+    </header>
+
+    <!-- App Views Screen Engine -->
+    <main id="app-content" class="flex-1 p-4">
+
+      <!-- ============================================ -->
+      <!-- VIEW 1: MENU / CARDÁPIO (DEFAULT FIRST SCREEN) -->
+      <!-- ============================================ -->
+      <section id="view-menu" class="space-y-4">
+        
+        <!-- Story / Viral Banner -->
+        <div class="relative overflow-hidden rounded-3xl p-4 bg-gradient-to-br from-pink-950/70 via-rose-950/40 to-neutral-900 border border-pink-500/30 shadow-xl">
+          <div class="absolute -right-6 -bottom-6 text-7xl opacity-15 select-none">🍓</div>
+          <div class="relative z-10 space-y-1">
+            <span class="inline-flex items-center gap-1 text-[10px] font-bold tracking-wider uppercase text-amber-300 bg-amber-400/10 px-2 py-0.5 rounded-full border border-amber-400/30">
+              <i class="fa-solid fa-fire text-amber-400"></i> Hype do Momento
+            </span>
+            <h2 class="text-xl font-black font-serif text-white leading-tight">
+              Tudo que a Virgínia compraria & você deseja!
+            </h2>
+            <p class="text-xs text-pink-100/70">
+              Tanghulu cristalizado, peixe estético com 90g de proteína e ouro comestível.
+            </p>
+          </div>
+        </div>
+
+        <!-- Category Pills Bar -->
+        <div id="category-chips" class="flex gap-2 overflow-x-auto hide-scrollbar pb-1 pt-1">
+          <!-- Categories injected dynamically -->
+        </div>
+
+        <!-- Loading State Indicator -->
+        <div id="loading-state" class="py-16 text-center space-y-3">
+          <div class="inline-block w-10 h-10 border-4 border-pink-500/30 border-t-pink-500 rounded-full animate-spin"></div>
+          <p class="text-sm font-medium text-pink-200/80">Carregando futilidades do cardápio...</p>
+        </div>
+
+        <!-- Error State Display -->
+        <div id="error-state" class="hidden py-12 px-4 rounded-3xl bg-rose-950/40 border border-rose-500/40 text-center space-y-3">
+          <div class="w-12 h-12 mx-auto rounded-full bg-rose-500/20 flex items-center justify-center text-rose-400 text-xl">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <h3 class="font-bold text-white text-base">Erro ao carregar cardápio</h3>
+          <p id="error-message" class="text-xs text-rose-200/70 max-w-xs mx-auto">Não foi possível carregar os itens fúteis neste momento.</p>
+          <button onclick="fetchMenuData()" class="px-4 py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-xs font-bold text-white transition active:scale-95">
+            <i class="fa-solid fa-rotate-right mr-1"></i> Tentar Novamente
+          </button>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="products-grid" class="grid grid-cols-1 gap-3.5">
+          <!-- Dynamically populated products -->
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- VIEW 2: CART / CARRINHO (LOCALSTORAGE BASED)  -->
+      <!-- ============================================ -->
+      <section id="view-cart" class="hidden space-y-4">
+        <div class="flex items-center justify-between border-b border-pink-500/20 pb-3">
+          <div class="flex items-center gap-2">
+            <button onclick="navigateTo('menu')" class="w-8 h-8 rounded-full bg-neutral-800 flex items-center justify-center text-pink-300 hover:text-white">
+              <i class="fa-solid fa-arrow-left text-sm"></i>
+            </button>
+            <h2 class="text-lg font-bold font-serif text-white">Sua Sacola de Futilidades</h2>
+          </div>
+          <button onclick="clearCart()" id="btn-clear-cart" class="text-xs text-pink-400/80 hover:text-pink-300 underline">
+            Limpar
+          </button>
+        </div>
+
+        <!-- Empty Cart Notice -->
+        <div id="cart-empty-state" class="hidden py-16 text-center space-y-4 px-6">
+          <div class="w-20 h-20 mx-auto rounded-full bg-pink-950/40 border border-pink-500/20 flex items-center justify-center text-3xl text-pink-400">
+            🛍️
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-base font-bold text-white">Sua sacola está vazia!</h3>
+            <p class="text-xs text-pink-200/60 leading-relaxed">
+              Você ainda não escolheu nenhum mimo viral. Volte ao cardápio e garanta seus morangos e ouro!
+            </p>
+          </div>
+          <button onclick="navigateTo('menu')" class="w-full py-3 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 text-white font-bold text-sm shadow-lg shadow-pink-600/30 active:scale-95 transition">
+            Voltar ao Cardápio Glam
+          </button>
+        </div>
+
+        <!-- Cart Items List & Calculations -->
+        <div id="cart-items-wrapper" class="space-y-4">
+          <div id="cart-items-list" class="space-y-3">
+            <!-- Dynamic Cart Items -->
+          </div>
+
+          <!-- Promo Kit Rule Banner -->
+          <div class="p-3 rounded-2xl bg-cyan-950/30 border border-cyan-500/30 flex items-start gap-2.5 text-xs text-cyan-200">
+            <i class="fa-solid fa-tag text-cyan-400 mt-0.5"></i>
+            <div>
+              <strong class="font-bold text-cyan-300">Regra de Kit Ativa:</strong> Itens marcados com 
+              <span class="px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-bold">PAGUE 2 LEVE 3</span> 
+              têm a cada 3 unidades cobradas apenas por 2!
+            </div>
+          </div>
+
+          <!-- Order Summary Breakdown -->
+          <div class="rounded-3xl p-4 bg-neutral-900 border border-pink-500/20 space-y-2 text-xs">
+            <div class="flex justify-between text-pink-200/70">
+              <span>Subtotal bruto</span>
+              <span id="cart-subtotal">R$ 0,00</span>
+            </div>
+            <div class="flex justify-between text-emerald-400 font-semibold">
+              <span>Descontos de Kits (Pague 2 Leve 3)</span>
+              <span id="cart-discount">- R$ 0,00</span>
+            </div>
+            <div class="flex justify-between text-pink-200/50">
+              <span>Taxa estética de hype</span>
+              <span>R$ 0,00</span>
+            </div>
+            <div class="border-t border-neutral-800 pt-2 flex justify-between items-center text-sm font-black text-white">
+              <span>Total do Investimento</span>
+              <span id="cart-total" class="text-lg text-pink-400 font-serif">R$ 0,00</span>
+            </div>
+          </div>
+
+          <!-- Proceed to Customer Info Step -->
+          <button onclick="navigateTo('checkout-form')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-600 via-rose-500 to-amber-500 text-white font-extrabold text-sm tracking-wide shadow-xl shadow-pink-600/30 active:scale-95 transition flex items-center justify-center gap-2">
+            <span>Finalizar Compra Fútil</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- VIEW 3: CHECKOUT REGISTRATION & GEOLOCATION  -->
+      <!-- ============================================ -->
+      <section id="view-checkout-form" class="hidden space-y-4">
+        <div class="flex items-center gap-2 border-b border-pink-500/20 pb-3">
+          <button onclick="navigateTo('cart')" class="w-8 h-8 rounded-full bg-neutral-800 flex items-center justify-center text-pink-300 hover:text-white">
+            <i class="fa-solid fa-arrow-left text-sm"></i>
+          </button>
+          <div>
+            <h2 class="text-lg font-bold font-serif text-white">Identificação VIP</h2>
+            <p class="text-[11px] text-pink-200/60">Passo 1 de 3: Dados de entrega fútil</p>
+          </div>
+        </div>
+
+        <form id="form-customer" onsubmit="handleCustomerSubmit(event)" class="space-y-3.5 text-xs">
+          <div>
+            <label class="block font-semibold text-pink-200 mb-1">Nome Completo *</label>
+            <div class="relative">
+              <input type="text" id="cust-name" required placeholder="Ex: Wanessa Camargo dos Santos" class="w-full bg-neutral-800/90 border border-pink-500/30 rounded-xl px-3 py-2.5 text-white placeholder-neutral-500 focus:outline-none focus:border-pink-500 text-xs" />
+              <i class="fa-regular fa-user absolute right-3 top-3 text-pink-400/50"></i>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-pink-200 mb-1">WhatsApp (apenas números) *</label>
+            <div class="relative">
+              <input type="tel" id="cust-whatsapp" required pattern="[0-9]{10,14}" placeholder="Ex: 11988887777" class="w-full bg-neutral-800/90 border border-pink-500/30 rounded-xl px-3 py-2.5 text-white placeholder-neutral-500 focus:outline-none focus:border-pink-500 text-xs" />
+              <i class="fa-brands fa-whatsapp absolute right-3 top-3 text-emerald-400/70"></i>
+            </div>
+            <span class="text-[10px] text-neutral-400">DDD + número (10 ou 11 dígitos)</span>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-pink-200 mb-1">E-mail *</label>
+            <div class="relative">
+              <input type="email" id="cust-email" required placeholder="seu@emailfutil.com" class="w-full bg-neutral-800/90 border border-pink-500/30 rounded-xl px-3 py-2.5 text-white placeholder-neutral-500 focus:outline-none focus:border-pink-500 text-xs" />
+              <i class="fa-regular fa-envelope absolute right-3 top-3 text-pink-400/50"></i>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-pink-200 mb-1">Endereço de Entrega *</label>
+            <textarea id="cust-address" required rows="2" placeholder="Rua, número, complemento, bairro e cidade" class="w-full bg-neutral-800/90 border border-pink-500/30 rounded-xl px-3 py-2 text-white placeholder-neutral-500 focus:outline-none focus:border-pink-500 text-xs resize-none"></textarea>
+          </div>
+
+          <!-- Geolocation Feedback Box -->
+          <div id="geo-status-box" class="hidden p-3 rounded-2xl text-xs space-y-1 transition-all">
+            <div id="geo-status-content" class="flex items-center gap-2"></div>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" id="btn-submit-cad" class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-600 via-rose-500 to-amber-500 text-white font-extrabold text-sm shadow-xl shadow-pink-600/30 active:scale-95 transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-location-crosshairs"></i>
+              <span>Validar Cadastro & Localização</span>
+            </button>
+          </div>
+        </form>
+
+        <p class="text-[11px] text-center text-neutral-400 leading-tight">
+          🔒 Conforme requisito, solicitaremos permissão de geolocalização com limite de 10s para verificação de área.
+        </p>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- VIEW 4: CREDENTIALS API / PROVA DE VIDA      -->
+      <!-- ============================================ -->
+      <section id="view-credentials" class="hidden space-y-4">
+        <div class="text-center space-y-2 py-4">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-pink-600 to-amber-400 p-0.5 flex items-center justify-center shadow-lg">
+            <div class="w-full h-full bg-neutral-900 rounded-full flex items-center justify-center text-pink-400 text-2xl">
+              <i class="fa-solid fa-fingerprint"></i>
+            </div>
+          </div>
+          <h2 class="text-xl font-black font-serif text-white">Verificação de Segurança VIP</h2>
+          <p class="text-xs text-pink-200/70 max-w-xs mx-auto">
+            Passo 2 de 3: Teste da API CredentialsContainer (navigator.credentials) do dispositivo.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-3xl bg-neutral-900 border border-pink-500/20 space-y-3 text-xs">
+          <div class="flex items-center gap-2 text-pink-300 font-bold">
+            <i class="fa-solid fa-shield-halved text-pink-400"></i>
+            <span>Verificação de Biometria / Credenciais</span>
+          </div>
+          <p class="text-neutral-300 leading-relaxed">
+            O aplicativo dispara a API nativa <code class="text-pink-300 font-mono bg-neutral-800 px-1 py-0.5 rounded">navigator.credentials.get()</code>. Se seu dispositivo ou navegador não tiver credencial salva ou cancelar, o checkout <strong>não trava</strong> e prossegue com log no console!
+          </p>
+          <div id="credentials-status-log" class="p-2.5 rounded-xl bg-neutral-950 border border-neutral-800 text-[11px] font-mono text-amber-300/90">
+            Aguardando disparo da API...
+          </div>
+        </div>
+
+        <div class="space-y-2.5 pt-2">
+          <button onclick="triggerCredentialsAuth()" id="btn-trigger-cred" class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 text-white font-extrabold text-sm shadow-xl shadow-pink-600/30 active:scale-95 transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-key"></i>
+            <span>Iniciar navigator.credentials.get()</span>
+          </button>
+          
+          <button onclick="skipOrProceedCredentials('Ignorado voluntariamente pelo usuário para estudo rápido')" class="w-full py-2.5 rounded-xl bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 text-xs font-semibold transition">
+            Continuar mesmo sem credencial
+          </button>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- VIEW 5: GATEWAY DE PAGAMENTO SIMULADO        -->
+      <!-- ============================================ -->
+      <section id="view-payment" class="hidden space-y-4">
+        <div class="flex items-center gap-2 border-b border-pink-500/20 pb-3">
+          <div>
+            <h2 class="text-lg font-bold font-serif text-white">Gateway de Pagamento Fútil</h2>
+            <p class="text-[11px] text-pink-200/60">Passo 3 de 3: Simulação de transação segura</p>
+          </div>
+        </div>
+
+        <!-- Order Summary for Payment -->
+        <div class="rounded-3xl p-4 bg-neutral-900 border border-pink-500/30 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-neutral-800">
+            <span class="text-xs text-neutral-400">Cliente VIP:</span>
+            <span id="pay-customer-name" class="text-xs font-bold text-white"></span>
+          </div>
+          <div class="flex items-center justify-between pb-2 border-b border-neutral-800">
+            <span class="text-xs text-neutral-400">Destino:</span>
+            <span id="pay-customer-addr" class="text-xs font-medium text-pink-200 truncate max-w-[200px]"></span>
+          </div>
+          <div class="flex items-center justify-between pt-1">
+            <span class="text-xs font-bold text-pink-300">Valor Total a Simular:</span>
+            <span id="pay-amount" class="text-xl font-black font-serif text-amber-300">R$ 0,00</span>
+          </div>
+        </div>
+
+        <!-- Simulated Payment Method Options -->
+        <div class="space-y-2">
+          <label class="text-xs font-semibold text-pink-200">Selecione o meio de pagamento simulado:</label>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <label class="flex items-center gap-2 p-3 rounded-2xl bg-neutral-800/90 border border-pink-500/40 cursor-pointer text-white">
+              <input type="radio" name="pay-method" checked class="accent-pink-500" />
+              <span>⚡ Pix Glam VIP</span>
+            </label>
+            <label class="flex items-center gap-2 p-3 rounded-2xl bg-neutral-800/90 border border-neutral-700 cursor-pointer text-white">
+              <input type="radio" name="pay-method" class="accent-pink-500" />
+              <span>💳 Cartão Black Hype</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-200 flex items-start gap-2">
+          <i class="fa-solid fa-circle-info text-amber-400 mt-0.5"></i>
+          <span>Simulação acadêmica. Nenhum dado financeiro real será solicitado ou cobrado.</span>
+        </div>
+
+        <!-- Pay Button with Spinner Logic -->
+        <div class="pt-2">
+          <button id="btn-pay-now" onclick="processSimulatedPayment()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-600 via-rose-500 to-amber-500 text-white font-black text-sm tracking-wide shadow-xl shadow-pink-600/40 active:scale-95 transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-lock"></i>
+            <span>Confirmar e Pagar Agora</span>
+          </button>
+        </div>
+
+        <!-- Processing Modal Overlay -->
+        <div id="payment-processing-overlay" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center">
+          <div class="w-16 h-16 border-4 border-pink-500/20 border-t-pink-500 rounded-full animate-spin mb-4"></div>
+          <h3 class="text-lg font-bold text-white mb-1">Processando no Gateway Glamour...</h3>
+          <p class="text-xs text-pink-200/70">Aguarde 2 segundos enquanto autorizamos suas futilidades...</p>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- VIEW 6: CONFIRMAÇÃO & DISPARO WHATSAPP       -->
+      <!-- ============================================ -->
+      <section id="view-success" class="hidden space-y-4 py-2">
+        <div class="text-center space-y-2">
+          <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 p-1 flex items-center justify-center shadow-lg shadow-emerald-500/30 animate-bounce">
+            <div class="w-full h-full bg-neutral-900 rounded-full flex items-center justify-center text-emerald-400 text-3xl">
+              <i class="fa-solid fa-check"></i>
+            </div>
+          </div>
+          <h2 class="text-2xl font-black font-serif text-white">Pedido Aprovado! ✨</h2>
+          <p class="text-xs text-pink-200/80">Sua futilidade foi garantida com sucesso absoluto.</p>
+        </div>
+
+        <!-- Receipt Card -->
+        <div class="rounded-3xl p-4 bg-neutral-900 border border-emerald-500/30 space-y-3 text-xs">
+          <div class="flex justify-between items-center border-b border-neutral-800 pb-2">
+            <span class="text-neutral-400">Nº do Pedido:</span>
+            <span id="success-order-id" class="font-mono font-bold text-pink-300"></span>
+          </div>
+          <div class="flex justify-between items-center border-b border-neutral-800 pb-2">
+            <span class="text-neutral-400">Titular:</span>
+            <span id="success-client-name" class="font-medium text-white"></span>
+          </div>
+          <div class="flex justify-between items-center border-b border-neutral-800 pb-2">
+            <span class="text-neutral-400">Endereço:</span>
+            <span id="success-client-addr" class="font-medium text-white text-right max-w-[200px] truncate"></span>
+          </div>
+          <div class="pt-1 flex justify-between items-center text-sm font-black">
+            <span class="text-white">Total Pago (Simulado):</span>
+            <span id="success-total" class="text-emerald-400 text-base font-serif"></span>
+          </div>
+        </div>
+
+        <!-- Direct WhatsApp Action Button -->
+        <div class="space-y-3 pt-2">
+          <a id="btn-whatsapp-send" target="_blank" rel="noopener noreferrer" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 text-white font-extrabold text-sm shadow-xl shadow-emerald-600/40 active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>Enviar Pedido no WhatsApp</span>
+          </a>
+
+          <button onclick="resetAndRestart()" class="w-full py-3 rounded-xl bg-neutral-800 text-neutral-300 text-xs font-bold hover:text-white transition">
+            <i class="fa-solid fa-store mr-1"></i> Fazer Outra Compra Fútil
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Persistent Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-40 bg-neutral-900/95 backdrop-blur-md border-t border-pink-500/20 px-6 py-2 flex justify-around items-center">
+      <button onclick="navigateTo('menu')" id="nav-btn-menu" class="flex flex-col items-center gap-1 text-pink-400 font-bold transition">
+        <i class="fa-solid fa-utensils text-base"></i>
+        <span class="text-[10px]">Cardápio</span>
+      </button>
+
+      <button onclick="navigateTo('cart')" id="nav-btn-cart" class="relative flex flex-col items-center gap-1 text-neutral-400 hover:text-pink-300 font-medium transition">
+        <div class="relative">
+          <i class="fa-solid fa-cart-shopping text-base"></i>
+          <span id="nav-cart-badge" class="hidden absolute -top-1.5 -right-2.5 bg-pink-600 text-white text-[9px] font-extrabold px-1 rounded-full">0</span>
+        </div>
+        <span class="text-[10px]">Sacola</span>
+      </button>
+
+      <button onclick="showInfoToast()" class="flex flex-col items-center gap-1 text-neutral-400 hover:text-pink-300 font-medium transition">
+        <i class="fa-solid fa-sparkles text-base"></i>
+        <span class="text-[10px]">Hits Virais</span>
+      </button>
+    </nav>
+
+    <!-- Toast Notification Element -->
+    <div id="toast" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full text-xs font-semibold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none transform -translate-y-2 bg-pink-600 text-white flex items-center gap-2">
+      <span id="toast-msg">Item adicionado com sucesso!</span>
+    </div>
+
+  </div>
+
+  <!-- ============================================ -->
+  <!-- JAVASCRIPT PURO (ZERO DEPENDÊNCIAS EXTERNAS) -->
+  <!-- ============================================ -->
+  <script>
+    /* -------------------------------------------------------------
+       1. DADOS FICTÍCIOS DE CARDÁPIO (PRODUTOS DO MOMENTO VIRAL)
+       Estrutura conforme critério:
+       { id, nome, descricao, preco, categoria, tag (hit | promo | kit) }
+       ------------------------------------------------------------- */
+    const FALLBACK_MENU_JSON = [
+      {
+        id: "prod-1",
+        nome: "Morango Cristalizado Tanghulu VIP",
+        descricao: "Morangos chilenos mergulhados em calda de açúcar com crocância audível no microfone do TikTok.",
+        preco: 38.00,
+        categoria: "doces",
+        tag: "hit",
+        imagem: "🍓"
+      },
+      {
+        id: "prod-2",
+        nome: "Abacaxi Dourado Comestível 24k",
+        descricao: "Fatias de abacaxi ultra doce envoltas em folhas de ouro 24k para stories com música do Zé Felipe.",
+        preco: 79.90,
+        categoria: "luxo",
+        tag: "promo",
+        imagem: "🍍"
+      },
+      {
+        id: "prod-3",
+        nome: "Sardinha Portuguesa 90g Proteína",
+        descricao: "O hit das musas fitness: conserva estética importada rica em ômega 3 e hype biológico.",
+        preco: 29.50,
+        categoria: "fitness",
+        tag: "kit",
+        imagem: "🐟"
+      },
+      {
+        id: "prod-4",
+        nome: "Bolo de Pistache & Creme de Avelã Dubai",
+        descricao: "A famosa sobremesa recheada com knafeh crocante e pasta pura de pistache que escorre.",
+        preco: 54.00,
+        categoria: "doces",
+        tag: "hit",
+        imagem: "🍰"
+      },
+      {
+        id: "prod-5",
+        nome: "Shot Matinal com Cúrcuma e Luz Solar",
+        descricao: "Frasco com 60ml de blend desinflamatório prensado a frio para tomar em jejum no feed.",
+        preco: 19.90,
+        categoria: "fitness",
+        tag: "kit",
+        imagem: "✨"
+      },
+      {
+        id: "prod-6",
+        nome: "Água Vulcânica em Garrafa de Vidro Escandinava",
+        descricao: "H2O de aquífero artesiano que promete hidratar a aura e servir de objeto de decoração.",
+        preco: 42.00,
+        categoria: "luxo",
+        tag: "promo",
+        imagem: "💎"
+      }
+    ];
+
+    /* -------------------------------------------------------------
+       STATE MANAGEMENT
+       ------------------------------------------------------------- */
+    let menuProducts = [];
+    let activeCategory = "todos";
+    let cart = []; // Array of { id, quantity }
+    let customerData = null;
+    let userCoords = null;
+    let completedOrderId = null;
+
+    const CART_STORAGE_KEY = "FUBANGUICE_CART_V1";
+    const WHATSAPP_PHONE = "5511942668992";
+
+    /* -------------------------------------------------------------
+       INIT APPLICATION
+       ------------------------------------------------------------- */
+    window.addEventListener("DOMContentLoaded", () => {
+      loadCartFromStorage();
+      fetchMenuData();
+    });
+
+    /* -------------------------------------------------------------
+       REQUISITO 1 & 2: CARREGAR JSON & TELA INICIAL DIRETA
+       ------------------------------------------------------------- */
+    async function fetchMenuData() {
+      const loadingEl = document.getElementById("loading-state");
+      const errorEl = document.getElementById("error-state");
+      const gridEl = document.getElementById("products-grid");
+
+      loadingEl.classList.remove("hidden");
+      errorEl.classList.add("hidden");
+      gridEl.innerHTML = "";
+
+      try {
+        // Simulação com promise para demonstrar loading e permitir arquivo local ou fallback
+        // Em GitHub Pages, se existir menu.json no repo ele tenta carregar; se não, usa os dados estruturados
+        let loadedData = null;
+        try {
+          const res = await fetch("menu.json", { cache: "no-cache" });
+          if (res.ok) {
+            loadedData = await res.json();
+          }
+        } catch (e) {
+          // fallback sem quebrar silenciosamente
+        }
+
+        // Se fetch falhou ou não encontrou, carrega a lista padrão com critério de aceite
+        menuProducts = loadedData && Array.isArray(loadedData) ? loadedData : FALLBACK_MENU_JSON;
+
+        if (!menuProducts || menuProducts.length === 0) {
+          throw new Error("Arquivo de cardápio vazio ou dados inválidos.");
+        }
+
+        loadingEl.classList.add("hidden");
+        renderCategoryChips();
+        renderProductGrid();
+      } catch (err) {
+        console.error("Erro ao carregar cardápio:", err);
+        loadingEl.classList.add("hidden");
+        errorEl.classList.remove("hidden");
+        document.getElementById("error-message").innerText = err.message || "Erro desconhecido ao ler o cardápio.";
+      }
+    }
+
+    function renderCategoryChips() {
+      const chipsContainer = document.getElementById("category-chips");
+      const categories = ["todos", ...new Set(menuProducts.map(p => p.categoria))];
+
+      chipsContainer.innerHTML = categories.map(cat => {
+        const isActive = cat === activeCategory;
+        const label = cat === "todos" ? "Todos os Hits" : cat.toUpperCase();
+        return `
+          <button onclick="setCategoryFilter('${cat}')" class="whitespace-nowrap px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+            isActive 
+              ? 'bg-gradient-to-r from-pink-600 to-rose-500 text-white shadow-md shadow-pink-600/30' 
+              : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+          }">
+            ${label}
+          </button>
+        `;
+      }).join("");
+    }
+
+    function setCategoryFilter(category) {
+      activeCategory = category;
+      renderCategoryChips();
+      renderProductGrid();
+    }
+
+    function renderProductGrid() {
+      const gridEl = document.getElementById("products-grid");
+      const filtered = activeCategory === "todos" 
+        ? menuProducts 
+        : menuProducts.filter(p => p.categoria === activeCategory);
+
+      if (filtered.length === 0) {
+        gridEl.innerHTML = `<div class="text-center py-10 text-xs text-neutral-400">Nenhum produto fútil nesta categoria.</div>`;
+        return;
+      }
+
+      gridEl.innerHTML = filtered.map(prod => {
+        // Tag badge visual styling (Requisito 1)
+        let tagBadgeHtml = "";
+        if (prod.tag === "hit") {
+          tagBadgeHtml = `<span class="badge-hit text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider shadow">🔥 Hype Viral</span>`;
+        } else if (prod.tag === "promo") {
+          tagBadgeHtml = `<span class="badge-promo text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider shadow">💥 Promo Glam</span>`;
+        } else if (prod.tag === "kit") {
+          tagBadgeHtml = `<span class="badge-kit text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider shadow">🎁 Pague 2 Leve 3</span>`;
+        }
+
+        const cartItem = cart.find(item => item.id === prod.id);
+        const inCartQty = cartItem ? cartItem.quantity : 0;
+
+        return `
+          <div class="relative rounded-3xl p-3.5 bg-neutral-900/90 border ${prod.tag === 'promo' ? 'border-amber-400/50' : 'border-pink-500/20'} flex flex-col justify-between gap-3 hover:border-pink-400/40 transition">
+            <div class="flex gap-3">
+              <div class="w-20 h-20 rounded-2xl bg-neutral-800 flex items-center justify-center text-4xl shrink-0 shadow-inner">
+                ${prod.imagem || '✨'}
+              </div>
+              <div class="space-y-1 flex-1">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  ${tagBadgeHtml}
+                  <span class="text-[10px] text-pink-300 font-bold uppercase tracking-wider">${prod.categoria}</span>
+                </div>
+                <h3 class="font-bold text-white text-sm leading-snug">${prod.nome}</h3>
+                <p class="text-[11px] text-neutral-400 line-clamp-2 leading-relaxed">${prod.descricao}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-neutral-800/80">
+              <div>
+                <span class="text-[10px] text-pink-200/60 block font-medium">Preço fútil</span>
+                <span class="text-base font-black font-serif text-amber-300">R$ ${prod.preco.toFixed(2).replace('.', ',')}</span>
+              </div>
+
+              <!-- Add to Cart / Qty Controls -->
+              ${inCartQty === 0 ? `
+                <button onclick="addToCart('${prod.id}')" class="px-3.5 py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-pink-600/30 active:scale-95 transition">
+                  <i class="fa-solid fa-plus text-[10px]"></i>
+                  <span>Quero Esse</span>
+                </button>
+              ` : `
+                <div class="flex items-center gap-2 bg-neutral-800 rounded-xl p-1 border border-pink-500/30">
+                  <button onclick="changeQty('${prod.id}', -1)" class="w-7 h-7 rounded-lg bg-neutral-700 text-pink-300 flex items-center justify-center font-bold hover:bg-pink-600 hover:text-white transition">
+                    -
+                  </button>
+                  <span class="font-bold text-xs text-white px-1.5">${inCartQty}</span>
+                  <button onclick="changeQty('${prod.id}', 1)" class="w-7 h-7 rounded-lg bg-pink-600 text-white flex items-center justify-center font-bold hover:bg-pink-500 transition">
+                    +
+                  </button>
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    /* -------------------------------------------------------------
+       REQUISITO 3: CARRINHO COM PERSISTÊNCIA EM LOCALSTORAGE
+       E REGRA DE KIT: A CADA 3 ITENS DO MESMO PRODUTO, COBRA-SE 2
+       ------------------------------------------------------------- */
+    function loadCartFromStorage() {
+      try {
+        const saved = localStorage.getItem(CART_STORAGE_KEY);
+        if (saved) {
+          cart = JSON.parse(saved);
+        }
+      } catch (e) {
+        console.warn("Falha ao ler localStorage:", e);
+        cart = [];
+      }
+      updateCartCounters();
+    }
+
+    function saveCartToStorage() {
+      try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+      } catch (e) {
+        console.warn("Falha ao salvar localStorage:", e);
+      }
+      updateCartCounters();
+    }
+
+    function addToCart(productId) {
+      const existing = cart.find(i => i.id === productId);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ id: productId, quantity: 1 });
+      }
+      saveCartToStorage();
+      renderProductGrid();
+      showToast("Adicionado à sua sacola fútil!");
+    }
+
+    function changeQty(productId, delta) {
+      const itemIndex = cart.findIndex(i => i.id === productId);
+      if (itemIndex > -1) {
+        cart[itemIndex].quantity += delta;
+        if (cart[itemIndex].quantity <= 0) {
+          cart.splice(itemIndex, 1);
+        }
+      }
+      saveCartToStorage();
+      renderProductGrid();
+      renderCartView();
+    }
+
+    function clearCart() {
+      if (confirm("Deseja realmente esvaziar sua sacola de futilidades?")) {
+        cart = [];
+        saveCartToStorage();
+        renderProductGrid();
+        renderCartView();
+        showToast("Sacola esvaziada!");
+      }
+    }
+
+    function updateCartCounters() {
+      const totalCount = cart.reduce((acc, curr) => acc + curr.quantity, 0);
+      const headerBadge = document.getElementById("cart-counter-badge");
+      const navBadge = document.getElementById("nav-cart-badge");
+
+      if (totalCount > 0) {
+        headerBadge.innerText = totalCount;
+        headerBadge.classList.remove("hidden");
+        navBadge.innerText = totalCount;
+        navBadge.classList.remove("hidden");
+      } else {
+        headerBadge.classList.add("hidden");
+        navBadge.classList.add("hidden");
+      }
+    }
+
+    /* -------------------------------------------------------------
+       CÁLCULO FINANCEIRO COM A REGRA DE KIT (PAGUE 2 LEVE 3)
+       Critério: produtos com tag "kit" aplicam a regra: a cada 3
+       unidades do mesmo item no carrinho, cobra-se 2.
+       ------------------------------------------------------------- */
+    function calculateCartTotals() {
+      let subtotalGross = 0;
+      let totalDiscounts = 0;
+
+      cart.forEach(item => {
+        const prod = menuProducts.find(p => p.id === item.id);
+        if (!prod) return;
+
+        const itemSubtotal = prod.preco * item.quantity;
+        subtotalGross += itemSubtotal;
+
+        if (prod.tag === "kit") {
+          // Cada 3 unidades, 1 sai de graça
+          const freeUnits = Math.floor(item.quantity / 3);
+          const discount = freeUnits * prod.preco;
+          totalDiscounts += discount;
+        }
+      });
+
+      const finalTotal = Math.max(0, subtotalGross - totalDiscounts);
+      return { subtotalGross, totalDiscounts, finalTotal };
+    }
+
+    function renderCartView() {
+      const emptyState = document.getElementById("cart-empty-state");
+      const wrapper = document.getElementById("cart-items-wrapper");
+      const listEl = document.getElementById("cart-items-list");
+      const btnClear = document.getElementById("btn-clear-cart");
+
+      if (cart.length === 0) {
+        emptyState.classList.remove("hidden");
+        wrapper.classList.add("hidden");
+        btnClear.classList.add("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+      wrapper.classList.remove("hidden");
+      btnClear.classList.remove("hidden");
+
+      listEl.innerHTML = cart.map(item => {
+        const prod = menuProducts.find(p => p.id === item.id);
+        if (!prod) return "";
+
+        // Regra de kit destacada
+        const isKit = prod.tag === "kit";
+        const freeItems = isKit ? Math.floor(item.quantity / 3) : 0;
+
+        return `
+          <div class="rounded-2xl p-3 bg-neutral-800/80 border border-neutral-700/80 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">${prod.imagem || '✨'}</span>
+              <div>
+                <h4 class="font-bold text-white text-xs leading-tight">${prod.nome}</h4>
+                <span class="text-[11px] text-amber-300 font-serif">R$ ${prod.preco.toFixed(2).replace('.', ',')} un.</span>
+                ${freeItems > 0 ? `
+                  <span class="block text-[9px] text-emerald-400 font-bold">🎉 Ganhou ${freeItems} unidade(s) grátis pelo Kit!</span>
+                ` : ''}
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 bg-neutral-900 rounded-xl p-1 border border-neutral-700">
+              <button onclick="changeQty('${prod.id}', -1)" class="w-6 h-6 rounded bg-neutral-800 text-pink-300 flex items-center justify-center font-bold text-xs hover:bg-pink-600 hover:text-white transition">
+                -
+              </button>
+              <span class="font-bold text-xs text-white px-1">${item.quantity}</span>
+              <button onclick="changeQty('${prod.id}', 1)" class="w-6 h-6 rounded bg-pink-600 text-white flex items-center justify-center font-bold text-xs hover:bg-pink-500 transition">
+                +
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      const { subtotalGross, totalDiscounts, finalTotal } = calculateCartTotals();
+      document.getElementById("cart-subtotal").innerText = `R$ ${subtotalGross.toFixed(2).replace('.', ',')}`;
+      document.getElementById("cart-discount").innerText = `- R$ ${totalDiscounts.toFixed(2).replace('.', ',')}`;
+      document.getElementById("cart-total").innerText = `R$ ${finalTotal.toFixed(2).replace('.', ',')}`;
+    }
+
+    /* -------------------------------------------------------------
+       SPA ROUTING ENGINE
+       ------------------------------------------------------------- */
+    function navigateTo(viewId) {
+      const views = [
+        "view-menu",
+        "view-cart",
+        "view-checkout-form",
+        "view-credentials",
+        "view-payment",
+        "view-success"
+      ];
+
+      views.forEach(v => {
+        const el = document.getElementById(v);
+        if (el) el.classList.add("hidden");
+      });
+
+      const target = document.getElementById(`view-${viewId}`);
+      if (target) {
+        target.classList.remove("hidden");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Update Nav active styling
+      const navMenu = document.getElementById("nav-btn-menu");
+      const navCart = document.getElementById("nav-btn-cart");
+      if (viewId === 'menu') {
+        navMenu.className = "flex flex-col items-center gap-1 text-pink-400 font-bold transition";
+        navCart.className = "relative flex flex-col items-center gap-1 text-neutral-400 hover:text-pink-300 font-medium transition";
+      } else if (viewId === 'cart') {
+        navMenu.className = "flex flex-col items-center gap-1 text-neutral-400 hover:text-pink-300 font-medium transition";
+        navCart.className = "relative flex flex-col items-center gap-1 text-pink-400 font-bold transition";
+        renderCartView();
+      }
+    }
+
+    /* -------------------------------------------------------------
+       REQUISITO 4: CADASTRO COM GEOLOCALIZAÇÃO & TIMEOUT 10S
+       Critérios:
+       - Validação básica de email e whatsapp
+       - Dispara geolocalização com timeout de 10s
+       - Concedida -> salva e segue para req. 5
+       - Negada/falha/timeout -> cadastro encerrado, carrinho preservado,
+         mensagem explicativa com opção de tentar novamente.
+       ------------------------------------------------------------- */
+    async function handleCustomerSubmit(event) {
+      event.preventDefault();
+
+      if (cart.length === 0) {
+        alert("Sua sacola está vazia! Adicione itens antes de cadastrar.");
+        navigateTo("menu");
+        return;
+      }
+
+      const name = document.getElementById("cust-name").value.trim();
+      const whatsapp = document.getElementById("cust-whatsapp").value.trim();
+      const email = document.getElementById("cust-email").value.trim();
+      const address = document.getElementById("cust-address").value.trim();
+
+      // Validação básica
+      if (!name || !whatsapp || !email || !address) {
+        alert("Por favor, preencha todos os campos obrigatórios.");
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert("E-mail com formato inválido. Verifique e tente novamente.");
+        return;
+      }
+
+      const cleanPhone = whatsapp.replace(/\D/g, "");
+      if (cleanPhone.length < 10) {
+        alert("WhatsApp deve conter DDD + número com pelo menos 10 dígitos numéricos.");
+        return;
+      }
+
+      // Preparar objeto de cadastro
+      customerData = {
+        nome: name,
+        whatsapp: cleanPhone,
+        email: email,
+        endereco: address
+      };
+
+      // Disparar geolocalização com timeout de 10s
+      await requestGeolocationVerification();
+    }
+
+    function requestGeolocationVerification() {
+      const geoBox = document.getElementById("geo-status-box");
+      const geoContent = document.getElementById("geo-status-content");
+      const submitBtn = document.getElementById("btn-submit-cad");
+
+      geoBox.classList.remove("hidden");
+      geoBox.className = "p-3 rounded-2xl text-xs space-y-1 bg-amber-950/40 border border-amber-500/40 text-amber-200 transition-all";
+      geoContent.innerHTML = `
+        <i class="fa-solid fa-spinner animate-spin text-amber-400"></i>
+        <span>Solicitando permissão de geolocalização (limite: 10s)...</span>
+      `;
+      submitBtn.disabled = true;
+
+      if (!navigator.geolocation) {
+        handleGeoFailure("Seu navegador não possui suporte à API de Geolocalização.");
+        submitBtn.disabled = false;
+        return;
+      }
+
+      const geoOptions = {
+        enableHighAccuracy: true,
+        timeout: 10000, // 10s strict timeout
+        maximumAge: 0
+      };
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Permissão concedida
+          userCoords = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          geoBox.className = "p-3 rounded-2xl text-xs space-y-1 bg-emerald-950/40 border border-emerald-500/40 text-emerald-200 transition-all";
+          geoContent.innerHTML = `
+            <i class="fa-solid fa-circle-check text-emerald-400"></i>
+            <span>Geolocalização verificada com sucesso! Coordenadas registradas.</span>
+          `;
+          submitBtn.disabled = false;
+
+          setTimeout(() => {
+            // Avança para o Requisito 5 (Credentials Container)
+            navigateTo("credentials");
+            prepareCredentialsView();
+          }, 900);
+        },
+        (error) => {
+          submitBtn.disabled = false;
+          let message = "Permissão negada ou indisponível.";
+          if (error.code === error.TIMEOUT) {
+            message = "Tempo limite (10s) de geolocalização esgotado.";
+          } else if (error.code === error.PERMISSION_DENIED) {
+            message = "Acesso à localização foi recusado pelo usuário.";
+          }
+          handleGeoFailure(message);
+        },
+        geoOptions
+      );
+    }
+
+    function handleGeoFailure(detail) {
+      const geoBox = document.getElementById("geo-status-box");
+      const geoContent = document.getElementById("geo-status-content");
+
+      // Conforme critério: cadastro encerrado, carrinho preservado, mensagem explicativa com opção de tentar novamente
+      geoBox.className = "p-3.5 rounded-2xl text-xs space-y-2 bg-rose-950/60 border border-rose-500/50 text-rose-200 transition-all";
+      geoContent.innerHTML = `
+        <div class="space-y-2">
+          <div class="flex items-center gap-2 font-bold text-rose-300">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Falha na Verificação de Localização</span>
+          </div>
+          <p class="text-[11px] leading-relaxed text-rose-100/80">
+            ${detail} Por questões de segurança do cardápio fútil, a validação de entrega requer confirmação de área. Seu carrinho continua preservado em sua sacola!
+          </p>
+          <button onclick="requestGeolocationVerification()" class="px-3 py-1.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs transition">
+            <i class="fa-solid fa-arrow-rotate-right mr-1"></i> Tentar Localização Novamente
+          </button>
+        </div>
+      `;
+    }
+
+    /* -------------------------------------------------------------
+       REQUISITO 5: CREDENTIALS CONTAINER (navigator.credentials)
+       Critérios:
+       - Chama navigator.credentials.get()
+       - Sucesso -> segue para req. 6
+       - API indisponível, cancelamento ou falha -> console log, aviso
+         "credencial não disponível neste dispositivo" e segue para req. 6
+         sem travar o checkout
+       - Feature detect e bloco try/catch
+       ------------------------------------------------------------- */
+    function prepareCredentialsView() {
+      const logEl = document.getElementById("credentials-status-log");
+      logEl.innerText = "Pronto para chamada navigator.credentials.get().";
+    }
+
+    async function triggerCredentialsAuth() {
+      const logEl = document.getElementById("credentials-status-log");
+      logEl.innerText = "Verificando suporte a PublicKeyCredential e credenciais...";
+
+      try {
+        // Feature detection
+        const hasCredentialsAPI = !!(navigator.credentials && navigator.credentials.get);
+        let isPlatformAuthenticator = false;
+
+        if (window.PublicKeyCredential && PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) {
+          try {
+            isPlatformAuthenticator = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+            console.log("[Credentials] Platform Authenticator disponível:", isPlatformAuthenticator);
+          } catch (e) {
+            console.warn("[Credentials] Falha ao testar platform authenticator:", e);
+          }
+        }
+
+        if (!hasCredentialsAPI) {
+          throw new Error("API navigator.credentials não suportada pelo navegador.");
+        }
+
+        logEl.innerText = "Disparando navigator.credentials.get()... Aguardando resposta do SO.";
+
+        // Tentativa de get de credencial (suporta Federated/Password ou challenge WebAuthn genérico)
+        // Usamos try/catch estrito para nunca bloquear o usuário
+        let credential = null;
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+          // Criamos um challenge para caso o browser suporte PublicKeyCredential
+          const challenge = new Uint8Array(32);
+          window.crypto.getRandomValues(challenge);
+
+          credential = await navigator.credentials.get({
+            signal: controller.signal,
+            publicKey: {
+              challenge: challenge,
+              timeout: 60000,
+              userVerification: "preferred"
+            },
+            mediation: "optional"
+          });
+          clearTimeout(timeoutId);
+        } catch (innerErr) {
+          console.warn("[Credentials] Erro durante credentials.get():", innerErr);
+          throw innerErr;
+        }
+
+        if (credential) {
+          console.log("[Credentials] Credencial autenticada com sucesso:", credential);
+          logEl.innerHTML = `<span class="text-emerald-400 font-bold">✓ Credencial autenticada com sucesso!</span>`;
+          setTimeout(() => {
+            navigateTo("payment");
+            preparePaymentView();
+          }, 800);
+        } else {
+          throw new Error("Nenhuma credencial retornada.");
+        }
+
+      } catch (err) {
+        // Conforme requisito:
+        // "motivo registrado no console, aviso 'credencial não disponível neste dispositivo' e fluxo segue para o req. 6 (não trava o checkout)"
+        console.error("[CredentialsContainer] Motivo registrado no console:", err.name, err.message);
+        
+        logEl.innerHTML = `
+          <div class="text-amber-300">
+            <strong>Aviso:</strong> credencial não disponível neste dispositivo.<br/>
+            <span class="text-[10px] text-neutral-400 font-normal">Motivo: ${err.message || 'Cancelado ou não configurado'}. Prosseguindo sem travar o checkout...</span>
+          </div>
+        `;
+
+        showToast("Credencial não disponível neste dispositivo. Continuando...");
+
+        setTimeout(() => {
+          navigateTo("payment");
+          preparePaymentView();
+        }, 1500);
+      }
+    }
+
+    function skipOrProceedCredentials(reason) {
+      console.log("[CredentialsContainer] Fluxo contínuo sem biometria. Motivo:", reason);
+      navigateTo("payment");
+      preparePaymentView();
+    }
+
+    /* -------------------------------------------------------------
+       REQUISITO 6: GATEWAY DE PAGAMENTO GENÉRICO SIMULADO
+       Critérios:
+       - Resumo do pedido e botão "pagar"
+       - Clique exibe estado de processamento simulado (spinner 2s) e confirmação
+       - Nenhum dado real de pagamento coletado
+       ------------------------------------------------------------- */
+    function preparePaymentView() {
+      const { finalTotal } = calculateCartTotals();
+      document.getElementById("pay-customer-name").innerText = customerData ? customerData.nome : "Cliente VIP";
+      document.getElementById("pay-customer-addr").innerText = customerData ? customerData.endereco : "-";
+      document.getElementById("pay-amount").innerText = `R$ ${finalTotal.toFixed(2).replace('.', ',')}`;
+    }
+
+    function processSimulatedPayment() {
+      const overlay = document.getElementById("payment-processing-overlay");
+      overlay.classList.remove("hidden");
+
+      // Simulação de gateway de 2 segundos exatos
+      setTimeout(() => {
+        overlay.classList.add("hidden");
+        
+        // Gerar número de pedido único com Date.now()
+        completedOrderId = Date.now();
+
+        // Preparar visualização de confirmação e link do WhatsApp
+        prepareSuccessView();
+        navigateTo("success");
+
+        // Limpar carrinho após conclusão
+        cart = [];
+        saveCartToStorage();
+      }, 2000);
+    }
+
+    /* -------------------------------------------------------------
+       REQUISITO 7: GERAÇÃO DO LINK DE WHATSAPP (+5511942668992)
+       Critérios:
+       - Tela de confirmação com botão "Enviar pedido no WhatsApp"
+       - Link https://wa.me/5511942668992?text=... usando encodeURIComponent
+       - Mensagem contém: número do pedido (Date.now()), itens com
+         quantidade e preço, total, nome e endereço.
+       ------------------------------------------------------------- */
+    function prepareSuccessView() {
+      const { subtotalGross, totalDiscounts, finalTotal } = calculateCartTotals();
+
+      document.getElementById("success-order-id").innerText = `#${completedOrderId}`;
+      document.getElementById("success-client-name").innerText = customerData ? customerData.nome : "-";
+      document.getElementById("success-client-addr").innerText = customerData ? customerData.endereco : "-";
+      document.getElementById("success-total").innerText = `R$ ${finalTotal.toFixed(2).replace('.', ',')}`;
+
+      // Montagem do texto do WhatsApp conforme especificação detalhada
+      let itemsListText = "";
+      cart.forEach((item, index) => {
+        const prod = menuProducts.find(p => p.id === item.id);
+        if (prod) {
+          const itemTotal = (prod.preco * item.quantity).toFixed(2).replace('.', ',');
+          itemsListText += `• ${item.quantity}x ${prod.nome} - R$ ${itemTotal}\n`;
+        }
+      });
+
+      const messageRaw = 
+`✨ *NOVO PEDIDO VIP - FUBANGUICE GOURMET* ✨
+━━━━━━━━━━━━━━━━━━━━━
+📦 *Pedido:* #${completedOrderId}
+👤 *Cliente:* ${customerData ? customerData.nome : 'Anônimo VIP'}
+📱 *WhatsApp:* ${customerData ? customerData.whatsapp : '-'}
+📍 *Endereço:* ${customerData ? customerData.endereco : '-'}
+${userCoords ? `🌐 *Localização:* https://maps.google.com/?q=${userCoords.lat},${userCoords.lng}\n` : ''}
+━━━━━━━━━━━━━━━━━━━━━
+🛒 *ITENS DO PEDIDO:*
+${itemsListText}
+${totalDiscounts > 0 ? `🎁 *Descontos de Kits:* - R$ ${totalDiscounts.toFixed(2).replace('.', ',')}\n` : ''}
+💰 *TOTAL PAGO (SIMULADO):* R$ ${finalTotal.toFixed(2).replace('.', ',')}
+━━━━━━━━━━━━━━━━━━━━━
+_Enviado via App SPA de Fubanguice!_ 💅`;
+
+      const encodedMessage = encodeURIComponent(messageRaw);
+      const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodedMessage}`;
+
+      const btnWhatsapp = document.getElementById("btn-whatsapp-send");
+      btnWhatsapp.href = whatsappUrl;
+    }
+
+    function resetAndRestart() {
+      customerData = null;
+      userCoords = null;
+      completedOrderId = null;
+      navigateTo("menu");
+    }
+
+    /* -------------------------------------------------------------
+       UI HELPER: TOAST FEEDBACK
+       ------------------------------------------------------------- */
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      const msg = document.getElementById("toast-msg");
+      msg.innerText = message;
+      toast.classList.remove("opacity-0", "-translate-y-2", "pointer-events-none");
+      toast.classList.add("opacity-100", "translate-y-0");
+
+      setTimeout(() => {
+        toast.classList.remove("opacity-100", "translate-y-0");
+        toast.classList.add("opacity-0", "-translate-y-2", "pointer-events-none");
+      }, 2500);
+    }
+
+    function showInfoToast() {
+      showToast("Tudo inspirado nas tendências mais virais da internet!");
+    }
+  </script>
+</body>
+</html>
