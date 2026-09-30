@@ -1236,5 +1236,34 @@ _Enviado via App SPA de Fubanguice!_ 💅`;
       showToast("Tudo inspirado nas tendências mais virais da internet!");
     }
   </script>
+
+  <!-- O resto do seu código HTML fica aqui em cima -->
+    
+    <script src="app.js">
+// Aguarda o HTML carregar completamente antes de rodar o JS
+document.addEventListener('DOMContentLoaded', () => {
+    carregarCardapio();
+});
+
+async function carregarCardapio() {
+    try {
+        // Busca o arquivo JSON na mesma pasta
+        const resposta = await fetch('./produtos.json');
+        
+        // Converte o arquivo lido para um objeto JavaScript
+        const dados = await resposta.json();
+        
+        // Mostra os produtos no console para teste
+        console.log("Sucesso! Os produtos são:", dados.produtos);
+        
+        // O próximo passo será criar uma função para desenhar esses dados na tela
+        
+    } catch (erro) {
+        console.error("Deu erro ao carregar o cardápio:", erro);
+        // Aqui entra a regra da SPEC: exibir o estado de erro na tela
+    }
+}
+      
+    </script>
 </body>
 </html>
